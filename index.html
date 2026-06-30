@@ -83,13 +83,17 @@
                                             <span class="tag tag-backend">NestJS API</span>
                                         </li>
                                         <li>
+                                            <span class="folder-name"><i class="fas fa-folder"></i> admin-dashboard/</span>
+                                            <span class="tag tag-react">Next.js (Web)</span>
+                                            <span class="tag tag-new">جديد!</span>
+                                        </li>
+                                        <li>
                                             <span class="folder-name"><i class="fas fa-folder"></i> customer-app/</span>
                                             <span class="tag tag-flutter">Flutter (Traveler)</span>
                                         </li>
                                         <li>
                                             <span class="folder-name"><i class="fas fa-folder"></i> vendor-app/</span>
                                             <span class="tag tag-flutter">Flutter (Vendor)</span>
-                                            <span class="tag tag-new">جديد!</span>
                                         </li>
                                     </ul>
                                 </li>
@@ -122,6 +126,15 @@
                                                         </li>
                                                         <li>
                                                             <span class="folder-name"><i class="fas fa-folder-open"></i>
+                                                                react-query/</span>
+                                                            <ul class="active">
+                                                                <li><span class="file-name"><i class="fab fa-react"
+                                                                            style="color:#61dafb"></i>
+                                                                        useBookings.ts</span></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <span class="folder-name"><i class="fas fa-folder-open"></i>
                                                                 dart/</span>
                                                             <ul class="active">
                                                                 <li><span class="file-name interactive"
@@ -132,8 +145,7 @@
                                                                         data-file="dart-vendor"><i
                                                                             class="fab fa-flutter"
                                                                             style="color:#00cec9"></i>
-                                                                        vendor_booking_model.dart</span> <span
-                                                                        class="tag tag-new">جديد!</span></li>
+                                                                        vendor_booking_model.dart</span></li>
                                                             </ul>
                                                         </li>
                                                     </ul>
@@ -380,6 +392,15 @@
                             </div>
                         </div>
                         <div class="mock-editor small">
+                            <div class="editor-header react">Admin Web (Next.js)</div>
+                            <div class="editor-body ts-result" id="react-result-area">
+                                <code><span class="keyword">export const</span> <span class="type">useBookings</span> = () => {</code>
+                                <code>  <span class="keyword">return</span> useQuery&lt;<span class="type">Booking</span>&gt;({ ... })</code>
+                                <code class="generated-line ts-gen-line" id="react-result-line"></code>
+                                <code>}</code>
+                            </div>
+                        </div>
+                        <div class="mock-editor small">
                             <div class="editor-header dart">Customer App (Dart)</div>
                             <div class="editor-body dart-result" id="dart-result-area">
                                 <code><span class="keyword">class</span> <span class="type">Booking</span> {</code>
@@ -389,7 +410,7 @@
                             </div>
                         </div>
                         <div class="mock-editor small">
-                            <div class="editor-header dart">Vendor App (Dart) <span class="tag tag-new">جديد</span></div>
+                            <div class="editor-header dart">Vendor App (Dart)</div>
                             <div class="editor-body dart-result" id="dart-vendor-result-area">
                                 <code><span class="keyword">class</span> <span class="type">Booking</span> {</code>
                                 <code>  <span class="keyword">final</span> <span class="type">String</span> time_slot;</code>
@@ -491,6 +512,27 @@
                     المشاريع. <strong>أنت مطور، مش صانع أدوات!</strong></p>
             </div>
 
+            <div class="uth-analogy glass fade-in-section">
+                <div class="analogy-header">
+                    <i class="fas fa-hard-hat"></i>
+                    <h3>مثال لتثبيت الفكرة: المهندس والمقاول 🏗️</h3>
+                </div>
+                <div class="analogy-body">
+                    <p>عشان تفصل تماماً بين "شكل الداتا" و "اللوجيك"، تخيل إننا بنبني عمارة:</p>
+                    <ul>
+                        <li><strong>ملف openapi.yaml:</strong> هو (الرسم الهندسي المطبوع). بيقول إن فيه "غرفة" مقاسها 4×4 متر اسمها "المطبخ" (ده <strong>شكل الداتا</strong>).</li>
+                        <li><strong>الأداة (OpenAPI Generator):</strong> هي (ماكينة الطباعة) اللي بتطبع الرسم ده وتوزعه على السباك والكهربائي والنجار عشان كلهم يمشوا على نفس المقاسات.</li>
+                        <li><strong>الـ Business Logic:</strong> هو (الشغل الفعلي) جوه المطبخ. إزاي هنوصل المواسير؟ إزاي هنطبخ الأكل؟ الرسم الهندسي مش بيطبخ الأكل! لازم إنت اللي تكتب كود الطبخ ده في الـ Controllers بتاعتك.</li>
+                    </ul>
+                    <div class="analogy-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>تأكيد هام جداً:</strong> كل اللي بنعمله في الصفحة دي هدفه فقط <strong>توحيد "شكل الداتا"</strong> عشان التطبيقات تفهم بعض وهي بتنقل البيانات. لكن الأداة مستحيل تكتب اللوجيك بتاعك (مثلاً: إزاي تحسب الضرائب، أو إزاي تتأكد من الدفع). اللوجيك ده مهمتك إنت كمطور!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- أسئلة إضافية (مخفية قابلة للتوسيع) -->
             <details class="inline-faq fade-in-section">
                 <summary>كيف تفهم الأداة ملف الـ YAML وتتكيف مع كل مشروع؟</summary>
@@ -515,6 +557,16 @@
             <details class="inline-faq fade-in-section">
                 <summary>ماذا تقصد بـ "دوال الاتصال بالشبكة (Network Clients)" مثل createBooking()؟</summary>
                 <p>في الطريقة القديمة، عشان سارة (مطورة الموبايل) تبعت حجز للباك إند، كانت بتضطر تكتب كود طويل وممل: تجهز رابط الـ API، وتعمل HTTP POST request، وتظبط الـ Headers (زي الـ Token)، وتعمل تحويل للبيانات من JSON لـ Dart Object والعكس (Serialization).<br><br><strong>مع الـ Code Generation:</strong> الأداة بتقرأ من الـ YAML إن فيه مسار اسمه <code>/bookings</code> نوعه <code>POST</code>، فتقوم <strong>مولدة كلاس كامل اسمه API Client</strong> جواه دالة جاهزة اسمها <code>createBooking()</code>.<br><br>سارة كل اللي بتعمله إنها بتنادي الدالة دي في سطر واحد:<br><code>var response = await apiClient.createBooking(bookingData);</code><br>والأداة بتكون كاتبة جوه الدالة دي كل كود الـ HTTP، والـ Headers، والـ JSON Parsing! ده بيوفر ساعات من كتابة الكود الروتيني (Boilerplate) وبيمنع أخطاء الـ (Typos) في أسماء الروابط أو الحقول.</p>
+            </details>
+
+            <details class="inline-faq fade-in-section">
+                <summary>كيف سيفيدنا وجود تطبيق ويب (Next.js) للـ Frontend في الـ Monorepo؟</summary>
+                <p>إضافة Next.js للوحة التحكم (Admin Dashboard) يبرز القوة الحقيقية للـ Monorepo بطريقتين:<br><br>1. <strong>توليد React Query Hooks:</strong> الأداة (OpenAPI) لا تولّد فقط هياكل البيانات، بل يمكنها توليد دوال React Query جاهزة للويب! المطور هيكتب <code>useGetBookings()</code> وهيحصل على الـ Loading state والـ Error state والداتا مترتبة ومربوطة بـ Typescript (Type-Safe) من غير ما يكتب <code>fetch</code> أو <code>axios</code>.<br><br>2. <strong>مشاركة كود Typescript (Shared Code):</strong> لأن الـ Backend (NestJS) والـ Frontend (Next.js) هما الاتنين Typescript، نقدر نكتب كود مرة واحدة في فولدر <code>packages/shared</code> ونستخدمه في المشروعين مع بعض! (مثلاً: معادلات حساب الضرائب المشتركة، أو Zod Validation Schemas). بمجرد تعديل المعادلة في الفولدر المشترك، بتُسمّع فوراً في الويب وفي السيرفر!</p>
+            </details>
+
+            <details class="inline-faq fade-in-section">
+                <summary>هل الفولدر المشترك له لغة معينة أو هيكل معين؟ وهل يمكن مشاركته مع كل اللغات؟</summary>
+                <p><strong>قاعدة ذهبية:</strong> مشاركة الكود المكتوب (Logic) تكون بين المشاريع التي تستخدم <strong>نفس لغة البرمجة (أو الـ Ecosystem)</strong>.<br><br>لذلك، الفولدر المشترك (مثلاً <code>packages/shared-utils</code>) يكون مكتوباً بلغة <strong>Typescript</strong>. هذا يعني أن الـ Backend (NestJS) والـ Web (Next.js) يمكنهم قراءة هذا الفولدر بسهولة تامة. لكن تطبيقات الموبايل (Flutter/Dart) <strong>لا يمكنها</strong> قراءة هذا الكود المشترك مباشرة لأنه بلغة مختلفة.<br><br><strong>هيكل الفولدر المشترك:</strong><br>هو مجرد مشروع صغير جداً، يحتوي على ملف <code>package.json</code> خاص به يحدد نقطة البداية (مثل <code>index.ts</code>). أنت تكتب دوال بسيطة وتعمل لها Export: <br><code>export const calculateTax = (price: number) => price * 0.14;</code><br><br>وفي تطبيق السيرفر أو الويب، تقوم بعمل Import عادي جداً كأنها مكتبة حملتها من الإنترنت، لكن الأداة (مثل Turborepo) تقوم بعمل <strong>Symlink (ربط وهمي)</strong> لتجعلهما يقرآن التعديلات فوراً دون الحاجة لرفع المكتبة على NPM!</p>
             </details>
         </div>
     </section>
@@ -752,6 +804,18 @@
                 <div class="faq-item glass">
                     <h4>لو عاوز أضيف حقل required مش optional؟</h4>
                     <p>في ملف الـ YAML، ضيف اسم الحقل في قائمة <code>required</code> اللي في أول الموديل. كده الكود المولّد مش هيحط <code>?</code> (nullable).</p>
+                </div>
+                <div class="faq-item glass" style="border-top: 3px solid var(--accent)">
+                    <h4>💡 متقدم: الـ Monorepo ولا الـ Microservices؟</h4>
+                    <p>سؤال خادع! الـ Monorepo هو طريقة <strong>تخزين الكود</strong>، بينما الـ Microservices هي طريقة <strong>تشغيل الكود (Deployment)</strong>. تقدر تعمل 20 Microservices وكلهم متخزنين جوه Monorepo واحد. ده بيسهل مشاركة الكود بينهم بدون ما ترفع 20 مكتبة على NPM.</p>
+                </div>
+                <div class="faq-item glass" style="border-top: 3px solid var(--accent)">
+                    <h4>💡 متقدم: إزاي بنحل مشكلة الـ Merge Conflicts لو 10 مطورين في نفس الـ Repo؟</h4>
+                    <p>فعلياً مفيش تعارض كبير بيحصل! لأن مطور الـ Flutter شغال في فولدر <code>apps/customer-app</code> ومطور الـ NestJS شغال في <code>apps/backend</code>. نقطة التلاقي الوحيدة هي ملف <code>openapi.yaml</code>، وده بيجبرهم يتواصلوا مع بعض ويتفقوا على الـ Contract قبل ما يكتبوا أي كود.</p>
+                </div>
+                <div class="faq-item glass" style="border-top: 3px solid var(--accent)">
+                    <h4>💡 متقدم: لو عدلت حرف في الموبايل، هل الـ Backend بيتعمله Build من الأول؟</h4>
+                    <p>أكيد لا! هنا بييجي دور أدوات زي <strong>Turborepo</strong> أو <strong>Nx</strong>. الأداة دي ذكية جداً وبترسم خريطة للمشروع (Dependency Graph). لو عدلت الموبايل، بتعمل Build للموبايل بس وتتجاهل الباقي تماماً، وده بيخلي الـ Pipeline سريع جداً.</p>
                 </div>
             </div>
         </div>

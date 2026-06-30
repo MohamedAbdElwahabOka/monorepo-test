@@ -369,8 +369,13 @@ pre,
 }
 
 .tag-flutter {
-    background: #00cec9;
-    color: #000;
+    background: rgba(0, 206, 201, 0.2);
+    color: #00cec9;
+}
+
+.tag-react {
+    background: rgba(97, 218, 251, 0.2);
+    color: #61dafb;
 }
 
 .tag-source {
@@ -568,7 +573,7 @@ pre,
 }
 
 .mock-editor.small {
-    height: 180px;
+    height: 140px;
 }
 
 .editor-header {
@@ -593,6 +598,10 @@ pre,
 
 .editor-header.dart {
     border-top: 2px solid #00cec9;
+}
+
+.editor-header.react {
+    border-top: 2px solid #61dafb;
 }
 
 .editor-body {
@@ -1546,6 +1555,65 @@ details.inline-faq p strong {
 .typing-container {
     color: var(--code-string);
     min-height: 20px;
+}
+
+/* Analogy Block */
+.uth-analogy {
+    margin: 30px 0;
+    border: 2px dashed var(--secondary);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.analogy-header {
+    background: rgba(0, 206, 201, 0.2);
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: var(--secondary);
+}
+
+.analogy-header i {
+    font-size: 1.5rem;
+}
+
+.analogy-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.analogy-body {
+    padding: 20px;
+    color: var(--text-light);
+    line-height: 1.7;
+}
+
+.analogy-body ul {
+    margin-top: 15px;
+    padding-right: 20px;
+}
+
+.analogy-body li {
+    margin-bottom: 10px;
+}
+
+.analogy-warning {
+    margin-top: 20px;
+    background: rgba(255, 95, 86, 0.1);
+    border-right: 4px solid var(--danger);
+    padding: 15px;
+    border-radius: 8px;
+    color: #ffda79;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.analogy-warning i {
+    color: var(--danger);
+    font-size: 1.2rem;
+    margin-top: 3px;
 }
 
 /* Responsive */

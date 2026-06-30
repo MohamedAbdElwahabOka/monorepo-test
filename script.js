@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const termOutput = document.getElementById('term-output');
 
     const tsLine = document.getElementById('ts-result-line');
+    const reactLine = document.getElementById('react-result-line');
     const dartLine = document.getElementById('dart-result-line');
     const dartVendorLine = document.getElementById('dart-vendor-result-line');
 
@@ -110,9 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
         termTyping.innerHTML = '';
         termOutput.innerHTML = '';
         tsLine.innerHTML = '';
+        reactLine.innerHTML = '';
         dartLine.innerHTML = '';
         dartVendorLine.innerHTML = '';
-        [tsLine, dartLine, dartVendorLine].forEach(el => el.classList.remove('active'));
+        [tsLine, reactLine, dartLine, dartVendorLine].forEach(el => el.classList.remove('active'));
     }
 
     async function typeText(element, text, speed = 30) {
@@ -136,16 +138,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2. Terminal
         await typeText(termTyping, 'npm run generate', 50);
         await new Promise(r => setTimeout(r, 500));
-        termOutput.innerHTML = `> rehla-monorepo@1.0.0 generate<br>> turbo run generate<br><br><span style="color:#00b894">✔</span> api-contract: openapi validated<br><span style="color:#00b894">✔</span> backend: booking.types.ts updated<br><span style="color:#00b894">✔</span> customer-app: booking_model.dart updated<br><span style="color:#00b894">✔</span> vendor-app: booking_model.dart updated<br><br><span style="color:#6c7086">Done in 2.3s</span>`;
+        termOutput.innerHTML = `> rehla-monorepo@1.0.0 generate<br>> turbo run generate<br><br><span style="color:#00b894">✔</span> api-contract: openapi validated<br><span style="color:#00b894">✔</span> backend: booking.types.ts updated<br><span style="color:#00b894">✔</span> admin-dashboard: useBookings.ts updated<br><span style="color:#00b894">✔</span> customer-app: booking_model.dart updated<br><span style="color:#00b894">✔</span> vendor-app: booking_model.dart updated<br><br><span style="color:#6c7086">Done in 2.3s</span>`;
         await new Promise(r => setTimeout(r, 500));
 
-        // 3. Show results in 3 places
+        // 3. Show results in 4 places
         let tsSuffix = fieldType === 'string' ? '?: string;' : ': number;';
         let dartType = fieldType === 'string' ? 'String?' : 'int?';
 
         tsLine.innerHTML = `  <span class="highlight-line">${fieldName}${tsSuffix}</span>`;
+        reactLine.innerHTML = `  <span class="highlight-line">// ${fieldName} is auto-typed!</span>`;
         dartLine.innerHTML = `  <span class="highlight-line">final ${dartType} ${fieldName};</span>`;
         dartVendorLine.innerHTML = `  <span class="highlight-line">final ${dartType} ${fieldName};</span>`;
+
+        [tsLine, reactLine, dartLine, dartVendorLine].forEach(el => el.classList.add('active'));
 
         runBtn.disabled = false;
         document.querySelectorAll('.preset-btn').forEach(b => b.disabled = false);
