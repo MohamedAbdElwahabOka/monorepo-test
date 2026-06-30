@@ -633,7 +633,40 @@
         </div>
     </section>
 
-    <!-- القسم 6: CI/CD Pipeline (مع محاكاة خطأ حقيقي + زرار يدوي) -->
+    <!-- القسم 6: Testing & OpenAPI -->
+    <section class="section testing-section" id="testing-section">
+        <div class="container">
+            <h2 class="section-title">🧪 أثر الـ Monorepo و OpenAPI على الـ Testing</h2>
+            <p class="section-subtitle">إزاي "عقد الداتا الموحد" بيخلي عملية اختبار المشروع (Testing) أسهل، أسرع، ومستحيل تنكسر؟</p>
+            
+            <div class="testing-grid fade-in-section">
+                <!-- Card 1: API Mocking -->
+                <div class="test-card glass">
+                    <div class="test-icon"><i class="fas fa-server"></i></div>
+                    <h3>1. سيرفرات وهمية فورية (API Mocking)</h3>
+                    <p>في الماضي: مطور الـ Flutter كان بينتظر أيام عشان مطور الـ Backend يخلص الـ API عشان يقدر يختبر شاشاته.</p>
+                    <p><strong>الآن:</strong> بمجرد كتابة ملف <code>openapi.yaml</code>، أدوات زي (Prism) بتقرأ الملف وتعمل <strong>Mock Server</strong> في ثواني! السيرفر ده بيرجع بيانات وهمية (Fake JSON) مطابقة للأنواع المكتوبة في الـ YAML. مطور الموبايل بيبدأ Testing من أول دقيقة بدون ما يستنى الـ Backend يكتب سطر لوجيك واحد!</p>
+                </div>
+
+                <!-- Card 2: Contract Testing -->
+                <div class="test-card glass">
+                    <div class="test-icon"><i class="fas fa-file-signature"></i></div>
+                    <h3>2. اختبارات العقد (Contract Testing)</h3>
+                    <p>في الماضي: الـ Backend ممكن يغير نوع حقل من <code>string</code> لـ <code>integer</code> بالغلط، والتطبيق يضرب في الـ Production ومحدش يكتشف ده!</p>
+                    <p><strong>الآن:</strong> عن طريق أدوات (Contract Testing) زي (Dredd أو Pact)، الـ Pipeline بياخد ملف الـ YAML، يبعت ريكويستات حقيقية للـ Backend، ويتأكد إن الـ JSON اللي راجع بيطابق 100% الـ Schema المكتوبة في الـ YAML. لو الـ Backend خالف العقد، الـ Test بيفشل فوراً.</p>
+                </div>
+
+                <!-- Card 3: Type-Safe Unit Tests -->
+                <div class="test-card glass">
+                    <div class="test-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>3. أمان تام في اختبارات الوحدة (Type-Safe Unit Tests)</h3>
+                    <p>بما إننا بنولد الـ Types (زي <code>Booking DTO</code>) في الـ TypeScript والـ Dart، فلو مطور الـ Flutter بيكتب <strong>Unit Test</strong> وحاول يحط <code>backup_phone: 123</code> (رقم بدل نص)، محرر الأكواد هيعترض ويطلع خطأ <strong>وقت الكتابة (Compile Time)</strong> قبل ما يشغل الـ Test أصلاً، وده بيمنع كمية أخطاء مرعبة كانت بتضيع وقت في الـ Debugging.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 7: CI/CD Pipeline (مع محاكاة خطأ حقيقي + زرار يدوي) -->
     <section class="section cicd-pipeline" id="cicd-pipeline">
         <div class="container">
             <h2 class="section-title">🛡️ التكامل مع CI/CD (الحماية)</h2>
