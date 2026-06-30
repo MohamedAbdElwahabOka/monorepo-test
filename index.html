@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدليل التفاعلي: Monorepo vs Polyrepo (نسخة Rihla)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar & Progress Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Monorepo<span>Guide</span></div>
+            <ul class="nav-links">
+                <li><a href="#hero" class="active">الرئيسية</a></li>
+                <li><a href="#file-tree-section">الهيكل</a></li>
+                <li><a href="#code-gen-section">Code Gen</a></li>
+                <li><a href="#under-the-hood">الكواليس</a></li>
+                <li><a href="#scenario">السيناريو</a></li>
+                <li><a href="#cicd-pipeline">CI/CD</a></li>
+                <li><a href="#glossary">المصطلحات</a></li>
+            </ul>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+    </nav>
+
+    <!-- أشكال الخلفية العائمة و Particles -->
+    <div class="background-shapes">
+        <canvas id="particles-canvas"></canvas>
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- القسم 1: Hero Section (القصة الواقعية) -->
+    <section class="section hero" id="hero">
+        <div class="container">
+            <div class="story-badge animate-slide-up">📖 مستند Rihla SRS v1.2</div>
+            <h1 class="gradient-text animate-slide-up">حكاية <span style="color: #f9a825;">خالد</span> مع الـ Monorepo
+            </h1>
+            <p class="subtitle animate-slide-up delay-1">
+                خالد مطور جديد في فريق Rihla. طلب منه المنتج إضافة حقل <strong>"special_requests"</strong> في نموذج
+                الحجز.
+                في الـ Polyrepo كان هيموت من التعب (تعديل 3 مشاريع)، لكن مع الـ Monorepo .. عدّل مكان واحد وخلص! 🤯
+            </p>
+            <div class="scroll-indicator animate-bounce delay-2">
+                <span>اكتشف السحر</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 2: شجرة الملفات التفاعلية (مع Tags) -->
+    <section class="section file-tree-section" id="file-tree-section">
+        <div class="container">
+            <h2 class="section-title">🗂️ هيكل المشروع (Monorepo)</h2>
+            <p class="section-subtitle">لاحظ وجود <strong>ثلاثة تطبيقات</strong> في مستودع واحد، وملف العقد (Contract)
+                في المنتصف.</p>
+            <div class="file-tree-layout fade-in-section">
+                <div class="tree-container glass">
+                    <ul class="tree">
+                        <li>
+                            <span class="folder-name"><i class="fas fa-folder-open"></i> monorepo-root/</span>
+                            <ul class="active">
+                                <li><span class="file-name"><i class="fab fa-npm"></i> package.json</span></li>
+                                <li><span class="file-name"><i class="fas fa-cogs"></i> turbo.json</span></li>
+                                <li><span class="file-name interactive" data-file="gh-actions"><i class="fab fa-github" style="color:#aaa"></i> .github/workflows/ci.yml</span> <span class="tag tag-new">CI/CD</span></li>
+                                <li>
+                                    <span class="folder-name"><i class="fas fa-folder-open"></i> apps/</span>
+                                    <ul class="active">
+                                        <li>
+                                            <span class="folder-name"><i class="fas fa-folder"></i> backend/</span>
+                                            <span class="tag tag-backend">NestJS API</span>
+                                        </li>
+                                        <li>
+                                            <span class="folder-name"><i class="fas fa-folder"></i> customer-app/</span>
+                                            <span class="tag tag-flutter">Flutter (Traveler)</span>
+                                        </li>
+                                        <li>
+                                            <span class="folder-name"><i class="fas fa-folder"></i> vendor-app/</span>
+                                            <span class="tag tag-flutter">Flutter (Vendor)</span>
+                                            <span class="tag tag-new">جديد!</span>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <span class="folder-name highlight-folder"><i class="fas fa-folder-open"></i>
+                                        packages/</span>
+                                    <ul class="active">
+                                        <li>
+                                            <span class="folder-name"><i class="fas fa-folder-open"></i>
+                                                api-contract/</span>
+                                            <ul class="active">
+                                                <li><span class="file-name interactive" data-file="openapi"><i
+                                                            class="fas fa-file-code" style="color:#f1c40f"></i>
+                                                        openapi.yaml</span> <span class="tag tag-source">Single Source
+                                                        of Truth</span></li>
+                                                <li><span class="file-name interactive" data-file="mustache"><i class="fas fa-file-alt" style="color:#e67e22"></i> templates/model.mustache</span> <span class="tag" style="background:var(--accent);color:#000">قالب</span></li>
+                                                <li>
+                                                    <span class="folder-name"><i class="fas fa-folder-open"></i>
+                                                        generated/</span>
+                                                    <ul class="active">
+                                                        <li>
+                                                            <span class="folder-name"><i class="fas fa-folder-open"></i>
+                                                                typescript/</span>
+                                                            <ul class="active">
+                                                                <li><span class="file-name interactive"
+                                                                        data-file="ts"><i class="fab fa-js"
+                                                                            style="color:#3498db"></i>
+                                                                        booking.types.ts</span></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li>
+                                                            <span class="folder-name"><i class="fas fa-folder-open"></i>
+                                                                dart/</span>
+                                                            <ul class="active">
+                                                                <li><span class="file-name interactive"
+                                                                        data-file="dart"><i class="fab fa-flutter"
+                                                                            style="color:#00cec9"></i>
+                                                                        booking_model.dart</span></li>
+                                                                <li><span class="file-name interactive"
+                                                                        data-file="dart-vendor"><i
+                                                                            class="fab fa-flutter"
+                                                                            style="color:#00cec9"></i>
+                                                                        vendor_booking_model.dart</span> <span
+                                                                        class="tag tag-new">جديد!</span></li>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="code-preview glass">
+                    <div class="preview-placeholder active" id="preview-placeholder">
+                        <i class="fas fa-hand-pointer"></i>
+                        <p>اضغط على أحد الملفات التفاعلية لرؤية الكود الحقيقي بالداخل</p>
+                    </div>
+
+                    <!-- OpenAPI Preview -->
+                    <div class="code-card" id="preview-openapi">
+                        <div class="code-header"><i class="fas fa-file-code" style="color:#f1c40f"></i> openapi.yaml
+                            <span class="ref">📍 SRS 7.3 + FR-045</span></div>
+                        <pre class="code-block language-yaml"><code><span class="keyword">openapi</span>: <span class="string">"3.0.0"</span>
+<span class="keyword">info</span>:
+  <span class="keyword">title</span>: Rihla API
+  <span class="keyword">version</span>: <span class="string">"1.2.0"</span>
+<span class="keyword">components</span>:
+  <span class="keyword">schemas</span>:
+    <span class="keyword">Booking</span>:
+      <span class="keyword">type</span>: <span class="string">object</span>
+      <span class="keyword">required</span>: [booking_id, user_id, experience_id, date, time_slot, adults, ticket_number]
+      <span class="keyword">properties</span>:
+        <span class="keyword">booking_id</span>:
+          <span class="keyword">type</span>: <span class="string">string</span>
+          <span class="keyword">format</span>: <span class="string">uuid</span>
+        <span class="keyword">user_id</span>:
+          <span class="keyword">type</span>: <span class="string">string</span>
+        <span class="keyword">experience_id</span>:
+          <span class="keyword">type</span>: <span class="string">string</span>
+        <span class="keyword">date</span>:
+          <span class="keyword">type</span>: <span class="string">string</span>
+          <span class="keyword">format</span>: <span class="string">date</span>
+        <span class="keyword">time_slot</span>:
+          <span class="keyword">type</span>: <span class="string">string</span>
+        <span class="keyword">adults</span>:
+          <span class="keyword">type</span>: <span class="string">integer</span>
+        <span class="keyword">children</span>:
+          <span class="keyword">type</span>: <span class="string">integer</span>
+        <span class="keyword">original_price_egp</span>:
+          <span class="keyword">type</span>: <span class="string">number</span>
+        <span class="keyword">ticket_number</span>:
+          <span class="keyword">type</span>: <span class="string">string</span>
+          <span class="keyword">description</span>: <span class="string">"8-digit verification (e.g. 5849-3021)"</span>
+        <span class="keyword">backup_phone</span>:
+          <span class="keyword">type</span>: <span class="string">string</span>
+        <span class="keyword">status</span>:
+          <span class="keyword">type</span>: <span class="string">string</span>
+          <span class="keyword">enum</span>: [initial, confirmed, cancelled, completed]
+        <span class="comment"># ⬇️ الحقل الجديد بناءً على FR-045!</span>
+        <span class="highlight-line"><span class="keyword">special_requests</span>:</span>
+        <span class="highlight-line">  <span class="keyword">type</span>: <span class="string">string</span></span>
+        <span class="highlight-line">  <span class="keyword">description</span>: <span class="string">"طلبات خاصة من المسافر"</span></span></code></pre>
+                    </div>
+
+                    <!-- Mustache Template Preview (جديد!) -->
+                    <div class="code-card" id="preview-mustache">
+                        <div class="code-header"><i class="fas fa-file-alt" style="color:#e67e22"></i> model.mustache
+                            <span class="ref">📍 قالب Dart المستخدم</span></div>
+                        <pre class="code-block" style="border-left: 4px solid #e67e22;"><code><span class="comment">// هذا هو القالب الذي تستخدمه أداة OpenAPI Generator</span>
+<span class="comment">// الأقواس المزدوجة {{ }} هي أماكن فاضية بتتملأ بالبيانات</span>
+
+<span class="keyword">class</span> <span class="type">{{classname}}</span> {
+<span class="comment">  // الأداة بتلف على كل الحقول من الـ YAML</span>
+  {{<span class="string">#vars</span>}}
+  <span class="keyword">final</span> <span class="type">{{dataType}}</span>{{<span class="string">#isNullable</span>}}?{{/<span class="string">isNullable</span>}} <span class="type">{{name}}</span>;
+  {{/<span class="string">vars</span>}}
+
+  <span class="type">{{classname}}</span>({
+    {{<span class="string">#vars</span>}}
+    {{<span class="string">#required</span>}}<span class="keyword">required</span> {{/<span class="string">required</span>}}<span class="keyword">this</span>.<span class="type">{{name}}</span>,
+    {{/<span class="string">vars</span>}}
+  });
+}
+
+<span class="comment">// مثال: لما الأداة تقرأ "special_requests" من YAML</span>
+<span class="comment">// {{classname}} ← Booking</span>
+<span class="comment">// {{name}}      ← special_requests</span>
+<span class="comment">// {{dataType}}  ← String</span>
+<span class="comment">// والنتيجة: final String? special_requests; ✅</span></code></pre>
+                    </div>
+
+                    <!-- TS Preview (Backend) -->
+                    <div class="code-card" id="preview-ts">
+                        <div class="code-header"><i class="fab fa-js" style="color:#3498db"></i>
+                            backend/src/types/booking.types.ts</div>
+                        <pre class="code-block language-ts"><code><span class="comment">// ⚡ Auto-generated from openapi.yaml</span>
+<span class="comment">// ⚠️ لا تعدل هذا الملف يدوياً - سيتم الكتابة فوقه عند التوليد!</span>
+
+<span class="keyword">export interface</span> <span class="type">Booking</span> {
+  booking_id: <span class="type">string</span>;
+  user_id: <span class="type">string</span>;
+  experience_id: <span class="type">string</span>;
+  date: <span class="type">string</span>;
+  time_slot: <span class="type">string</span>;
+  adults: <span class="type">number</span>;
+  children?: <span class="type">number</span>;
+  original_price_egp?: <span class="type">number</span>;
+  ticket_number: <span class="type">string</span>;
+  backup_phone?: <span class="type">string</span>;
+  status: <span class="type">'initial' | 'confirmed' | 'cancelled' | 'completed'</span>;
+  <span class="highlight-line">special_requests?: <span class="type">string</span>;</span>
+}</code></pre>
+                    </div>
+
+                    <!-- Dart Preview (Customer App) -->
+                    <div class="code-card" id="preview-dart">
+                        <div class="code-header"><i class="fab fa-flutter" style="color:#00cec9"></i>
+                            customer-app/lib/models/booking_model.dart</div>
+                        <pre class="code-block language-dart"><code><span class="comment">// ⚡ Auto-generated for Customer App</span>
+<span class="keyword">class</span> <span class="type">Booking</span> {
+  <span class="keyword">final</span> <span class="type">String</span> booking_id;
+  <span class="keyword">final</span> <span class="type">String</span> user_id;
+  <span class="keyword">final</span> <span class="type">String</span> date;
+  <span class="keyword">final</span> <span class="type">String</span> time_slot;
+  <span class="keyword">final</span> <span class="type">int</span> adults;
+  <span class="keyword">final</span> <span class="type">int?</span> children;
+  <span class="keyword">final</span> <span class="type">String</span> ticket_number;
+  <span class="keyword">final</span> <span class="type">String?</span> backup_phone;
+  <span class="keyword">final</span> <span class="type">String</span> status;
+  <span class="highlight-line"><span class="keyword">final</span> <span class="type">String?</span> special_requests;</span>
+}</code></pre>
+                    </div>
+
+                    <!-- Dart Preview (Vendor App) -->
+                    <div class="code-card" id="preview-dart-vendor">
+                        <div class="code-header"><i class="fab fa-flutter" style="color:#00cec9"></i>
+                            vendor-app/lib/models/booking_model.dart <span class="tag tag-new">جديد!</span></div>
+                        <pre class="code-block language-dart"><code><span class="comment">// ⚡ Auto-generated for Vendor App</span>
+<span class="keyword">class</span> <span class="type">Booking</span> {
+  <span class="keyword">final</span> <span class="type">String</span> booking_id;
+  <span class="keyword">final</span> <span class="type">String</span> time_slot;
+  <span class="keyword">final</span> <span class="type">int</span> adults;
+  <span class="keyword">final</span> <span class="type">String</span> ticket_number; <span class="comment">// يُستخدم في QR Scan</span>
+  <span class="keyword">final</span> <span class="type">String</span> status;
+  <span class="highlight-line"><span class="keyword">final</span> <span class="type">String?</span> special_requests;</span> <span class="comment">// يظهر في تفاصيل الحجز</span>
+}</code></pre>
+                    </div>
+
+                    <!-- GitHub Actions Preview (جديد!) -->
+                    <div class="code-card" id="preview-gh-actions">
+                        <div class="code-header"><i class="fab fa-github" style="color:#aaa"></i>
+                            .github/workflows/ci.yml <span class="ref">📍 CI/CD Config</span></div>
+                        <pre class="code-block language-yaml"><code><span class="comment"># هذا الملف الحقيقي اللي بيشتغل على GitHub Actions</span>
+<span class="keyword">name</span>: <span class="string">Rihla CI Pipeline</span>
+<span class="keyword">on</span>:
+  <span class="keyword">pull_request</span>:
+    <span class="keyword">branches</span>: [main, develop]
+
+<span class="keyword">jobs</span>:
+  <span class="keyword">build-and-test</span>:
+    <span class="keyword">runs-on</span>: <span class="string">ubuntu-latest</span>
+    <span class="keyword">steps</span>:
+      - <span class="keyword">uses</span>: <span class="string">actions/checkout@v4</span>
+
+      <span class="comment"># 1. تثبيت الحزم</span>
+      - <span class="keyword">run</span>: <span class="string">npm ci</span>
+
+      <span class="highlight-line"><span class="comment"># 2. توليد الكود من الـ OpenAPI (الخطوة السحرية!)</span></span>
+      <span class="highlight-line">- <span class="keyword">run</span>: <span class="string">npm run generate</span></span>
+
+      <span class="comment"># 3. فحص الأنواع (Type Check)</span>
+      <span class="highlight-line">- <span class="keyword">run</span>: <span class="string">npx turbo run typecheck</span></span>
+
+      <span class="comment"># 4. بناء كل المشاريع</span>
+      - <span class="keyword">run</span>: <span class="string">npx turbo run build</span>
+
+      <span class="comment"># 5. اختبارات</span>
+      - <span class="keyword">run</span>: <span class="string">npx turbo run test</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 3: رحلة Code Generation -->
+    <section class="section code-gen-section" id="code-gen-section">
+        <div class="container">
+            <h2 class="section-title">⚡ رحلة الـ Code Generation</h2>
+            <p class="section-subtitle">شاهد كيف يتحول ملف YAML إلى كود حقيقي في <strong>3 مشاريع</strong> بضغطة زر
+                واحدة!</p>
+
+            <div class="generator-workspace fade-in-section">
+                <!-- الخطوة 1 -->
+                <div class="gen-step">
+                    <div class="step-badge">1</div>
+                    <h3>📝 اكتب العقد (Contract)</h3>
+                    <div class="mock-editor">
+                        <div class="editor-header yaml">openapi.yaml</div>
+                        <div class="editor-body">
+                            <code><span class="keyword">Booking:</span></code>
+                            <code><span class="keyword">  properties:</span></code>
+                            <code><span class="keyword">    time_slot:</span> <span class="keyword">type:</span> <span class="string">string</span></code>
+                            <div class="typing-container" id="yaml-typing"></div>
+                            <div class="srs-ref">📍 المرجع: SRS v1.2 § 7.3 (Data Models)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الخطوة 2 -->
+                <div class="gen-step center-step">
+                    <div class="step-badge">2</div>
+                    <h3>▶️ شغّل السكريبت</h3>
+                    <div class="mock-terminal">
+                        <div class="terminal-header"><span class="btn red"></span><span class="btn yellow"></span><span
+                                class="btn green"></span></div>
+                        <div class="terminal-body">
+                            <span class="prompt">$ </span><span class="command" id="term-typing"></span>
+                        </div>
+                        <div class="terminal-output" id="term-output"></div>
+                    </div>
+                    <p class="gen-subtitle">اختر حقل من SRS:</p>
+                    <div class="quick-actions">
+                        <button class="action-btn preset-btn" data-field="special_requests" data-type="string">➕ special_requests <small>(FR-045)</small></button>
+                        <button class="action-btn preset-btn" data-field="backup_phone" data-type="string">📱 backup_phone <small>(FR-045)</small></button>
+                        <button class="action-btn preset-btn" data-field="max_pax" data-type="number">🔢 max_pax <small>(SRS 7.2)</small></button>
+                        <button class="action-btn preset-btn" data-field="ticket_number" data-type="string">🎟️ ticket_number <small>(FR-052)</small></button>
+                    </div>
+                    <button class="action-btn primary-btn" id="run-gen-btn">🚀 توليد الكود</button>
+                </div>
+
+                <!-- الخطوة 3 -->
+                <div class="gen-step">
+                    <div class="step-badge">3</div>
+                    <h3>🎉 النتيجة في 3 مشاريع</h3>
+                    <div class="results-grid">
+                        <div class="mock-editor small">
+                            <div class="editor-header ts">Backend (TS)</div>
+                            <div class="editor-body ts-result" id="ts-result-area">
+                                <code><span class="keyword">interface</span> <span class="type">Booking</span> {</code>
+                                <code>  time_slot: <span class="type">string</span>;</code>
+                                <code class="generated-line ts-gen-line" id="ts-result-line"></code>
+                                <code>}</code>
+                            </div>
+                        </div>
+                        <div class="mock-editor small">
+                            <div class="editor-header dart">Customer App (Dart)</div>
+                            <div class="editor-body dart-result" id="dart-result-area">
+                                <code><span class="keyword">class</span> <span class="type">Booking</span> {</code>
+                                <code>  <span class="keyword">final</span> <span class="type">String</span> time_slot;</code>
+                                <code class="generated-line dart-gen-line" id="dart-result-line"></code>
+                                <code>}</code>
+                            </div>
+                        </div>
+                        <div class="mock-editor small">
+                            <div class="editor-header dart">Vendor App (Dart) <span class="tag tag-new">جديد</span></div>
+                            <div class="editor-body dart-result" id="dart-vendor-result-area">
+                                <code><span class="keyword">class</span> <span class="type">Booking</span> {</code>
+                                <code>  <span class="keyword">final</span> <span class="type">String</span> time_slot;</code>
+                                <code class="generated-line dart-gen-line" id="dart-vendor-result-line"></code>
+                                <code>}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 4: ماذا يحدث خلف الكواليس؟ (مفصل جداً) -->
+    <section class="section under-the-hood" id="under-the-hood">
+        <div class="container">
+            <h2 class="section-title">🔍 ماذا يحدث خلف الكواليس؟</h2>
+            <p class="section-subtitle">مين بيكتب السكريبت؟ إزاي الـ YAML بيتحول لكود؟ <strong>(إجابة: أنت مش بتكتب حاجة! الأداة شغالة)</strong></p>
+
+            <!-- المخطط الرئيسي -->
+            <div class="uth-diagram fade-in-section">
+                <div class="uth-node file">
+                    <i class="fas fa-file-alt"></i>
+                    <span>openapi.yaml</span>
+                    <div class="uth-note">📝 أنت تكتبه (مرة واحدة)<br>ده الملف الوحيد اللي بتعدله</div>
+                </div>
+                <div class="uth-arrow"><i class="fas fa-chevron-left"></i></div>
+                <div class="uth-node processor">
+                    <i class="fas fa-cogs"></i>
+                    <span>OpenAPI Generator (الأداة)</span>
+                    <div class="uth-note">⚙️ أداة جاهزة مفتوحة المصدر (مبنية بـ Java)<br>بتثبتها مرة واحدة: <code>npm i @openapitools/openapi-generator-cli</code></div>
+                    <div class="processor-internals">
+                        <div class="internal-step">
+                            <i class="fas fa-network-wired"></i>
+                            <span>1. YAML Parser</span>
+                            <small>يقرأ الملف ويحوله لـ Abstract Syntax Tree (شجرة بيانات)</small>
+                        </div>
+                        <div class="internal-arrow"><i class="fas fa-arrow-down"></i></div>
+                        <div class="internal-step">
+                            <i class="fas fa-code"></i>
+                            <span>2. Mustache Templates</span>
+                            <small>قوالب فيها أماكن فاضية {{ }} بتتملأ بالبيانات<br>⬆️ اضغط على ملف model.mustache في الشجرة فوق عشان تشوف القالب الحقيقي!</small>
+                        </div>
+                        <div class="internal-arrow"><i class="fas fa-arrow-down"></i></div>
+                        <div class="internal-step">
+                            <i class="fas fa-file-export"></i>
+                            <span>3. File Writer</span>
+                            <small>يكتب الملفات النهائية في مجلد generated/</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="uth-arrow"><i class="fas fa-chevron-left"></i></div>
+                <div class="uth-node result">
+                    <i class="fas fa-box-open"></i>
+                    <span>الكود المولّد</span>
+                    <div class="uth-note">📦 3 مشاريع في نفس اللحظة:<br>booking.types.ts<br>booking_model.dart (×2)</div>
+                </div>
+            </div>
+
+            <!-- مثال حقيقي: ماذا يحدث تحديداً؟ -->
+            <div class="uth-example glass fade-in-section">
+                <h3>🧪 مثال: ماذا يحدث تحديداً لما تضيف <code>special_requests</code>؟</h3>
+                <div class="uth-steps-detail">
+                    <div class="uth-detail-step">
+                        <div class="detail-num">1</div>
+                        <div class="detail-content">
+                            <h4>الأداة تقرأ الـ YAML</h4>
+                            <pre class="code-block language-yaml"><code><span class="keyword">special_requests</span>:
+  <span class="keyword">type</span>: <span class="string">string</span></code></pre>
+                            <p>تتحول في الذاكرة لـ: <code>{ name: "special_requests", dataType: "String", isNullable: true }</code></p>
+                        </div>
+                    </div>
+                    <div class="uth-detail-step">
+                        <div class="detail-num">2</div>
+                        <div class="detail-content">
+                            <h4>الأداة تمرر البيانات للقالب (Mustache Template)</h4>
+                            <pre class="code-block"><code><span class="comment">// القالب الأصلي:</span>
+<span class="keyword">final</span> <span class="type">{{dataType}}</span>{{<span class="string">#isNullable</span>}}?{{/<span class="string">isNullable</span>}} <span class="type">{{name}}</span>;
+
+<span class="comment">// بعد ملء القالب:</span>
+<span class="highlight-line"><span class="keyword">final</span> <span class="type">String?</span> special_requests;</span></code></pre>
+                        </div>
+                    </div>
+                    <div class="uth-detail-step">
+                        <div class="detail-num">3</div>
+                        <div class="detail-content">
+                            <h4>الأداة تكتب النتيجة في الملف</h4>
+                            <p>الملف <code>generated/dart/booking_model.dart</code> يتم الكتابة فوقه تلقائياً بالحقل الجديد.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uth-info glass fade-in-section">
+                <i class="fas fa-info-circle"></i>
+                <p><strong>الخلاصة للمطور الجديد:</strong> أنت مش هتكتب أي سكريبتات معقدة! أنت بس هتروح لملف
+                    <code>openapi.yaml</code>، تضيف الحقل الجديد، وتشغل أمر <code>npm run generate</code>. الأداة
+                    (OpenAPI Generator) هتاخد الـ YAML وتصب البيانات في قوالب جاهزة، وتطلعلك الكود النظيف الجاهز في كل
+                    المشاريع. <strong>أنت مطور، مش صانع أدوات!</strong></p>
+            </div>
+
+            <!-- أسئلة إضافية (مخفية قابلة للتوسيع) -->
+            <details class="inline-faq fade-in-section">
+                <summary>كيف تفهم الأداة ملف الـ YAML وتتكيف مع كل مشروع؟</summary>
+                <p>الأداة (مكتوبة بـ Java) ليست ذكاءً اصطناعياً. هي تقوم بتحليل الـ YAML (Parsing) وتحوله لشجرة بيانات <strong>(AST)</strong>. بعد ذلك تستخدم ما يسمى بـ "Generators" محددة (مثل <code>typescript-axios</code> للـ Backend أو <code>dart</code> للموبايل). كل Generator يمتلك مجموعة قوالب (Mustache Templates) يأخذ البيانات ويصبها فيها ليخرج الكود المناسب للغة المشروع.</p>
+            </details>
+
+            <details class="inline-faq fade-in-section">
+                <summary>هل أقوم بالتعديل دائماً في الـ YAML؟ وكيف أضيف شرطاً (مثل: السن &gt;= 12)؟</summary>
+                <p><strong>نعم، التعديل دائماً يبدأ من ملف <code>openapi.yaml</code></strong> لأنه الـ Single Source of Truth.<br><br>لإضافة شرط السن، تضيف <code>minimum: 12</code> تحت الحقل في الـ YAML. وعندما تقوم بتشغيل الـ Generator، تقوم الأداة بترجمة هذا الشرط إلى <strong>Annotations</strong> في الـ Backend (مثل <code>@Min(12)</code> في NestJS) وإلى <strong>Validation rules</strong> في كود الموبايل، وذلك بناءً على ما تمت برمجته مسبقاً داخل القوالب (Templates).</p>
+            </details>
+
+            <details class="inline-faq fade-in-section">
+                <summary>أين يذهب الكود المولّد؟ ومن يكتب هذه القوالب (Templates)؟</summary>
+                <p>الكود المولّد <strong>لا يكتب الـ Business Logic الخاص بك</strong> (مثل Controllers أو Services)، بل يقوم بتوليد <strong>هياكل البيانات (Interfaces و DTOs)</strong> فقط. أنت تأخذ هذه الملفات المولّدة وتقوم بعمل Import لها لتستخدمها في الـ Controller الخاص بك.<br><br><strong>من يكتب القوالب؟</strong> الأداة تأتي بآلاف القوالب الافتراضية الجاهزة (مفتوحة المصدر)، ولكن إذا احتاج فريقك (مثل الـ DevOps أو الـ Senior) شيئاً مخصصاً لـ Rihla، يمكنهم كتابة Custom Template خاص وإجبار الأداة على استخدامه بدلاً من الافتراضي.</p>
+            </details>
+
+            <details class="inline-faq fade-in-section">
+                <summary>هل معنى ذلك أن هذا النظام كله معمول لتغييرات الداتا (Data) وليس لـ (Business Logic) المشروع؟</summary>
+                <p><strong>بالضبط! أنت لخصت الفكرة 100%.</strong><br><br>هذا النظام (Code Generation) مسؤول فقط عن <strong>"عقد الاتصال" (The Contract)</strong>. هو يولد شكل البيانات (Models, DTOs)، قواعد التحقق (Validation)، ودوال الاتصال بالشبكة (Network Clients) مثل <code>createBooking()</code>.<br><br><strong>ماذا عن اللوجيك؟</strong> الأداة لا تعرف كيف تحسب خصم الـ Subscription، ولا كيف تتواصل مع بوابات الدفع (PayMob)، ولا كيف ترسل إشعار WhatsApp. هذا اللوجيك (Business Logic) تكتبه أنت بنفسك داخل الـ Services الخاصة بك.<br><br><strong>الهدف الحقيقي:</strong> الأداة تخلصك من كود "النسخ واللصق" الممل بين المشاريع وتضمن عدم وجود أخطاء في نقل البيانات، عشان توفر وقتك وتخليك تركز على كتابة "اللوجيك" المعقد والمهم!</p>
+            </details>
+
+            <details class="inline-faq fade-in-section">
+                <summary>ماذا تقصد بـ "دوال الاتصال بالشبكة (Network Clients)" مثل createBooking()؟</summary>
+                <p>في الطريقة القديمة، عشان سارة (مطورة الموبايل) تبعت حجز للباك إند، كانت بتضطر تكتب كود طويل وممل: تجهز رابط الـ API، وتعمل HTTP POST request، وتظبط الـ Headers (زي الـ Token)، وتعمل تحويل للبيانات من JSON لـ Dart Object والعكس (Serialization).<br><br><strong>مع الـ Code Generation:</strong> الأداة بتقرأ من الـ YAML إن فيه مسار اسمه <code>/bookings</code> نوعه <code>POST</code>، فتقوم <strong>مولدة كلاس كامل اسمه API Client</strong> جواه دالة جاهزة اسمها <code>createBooking()</code>.<br><br>سارة كل اللي بتعمله إنها بتنادي الدالة دي في سطر واحد:<br><code>var response = await apiClient.createBooking(bookingData);</code><br>والأداة بتكون كاتبة جوه الدالة دي كل كود الـ HTTP، والـ Headers، والـ JSON Parsing! ده بيوفر ساعات من كتابة الكود الروتيني (Boilerplate) وبيمنع أخطاء الـ (Typos) في أسماء الروابط أو الحقول.</p>
+            </details>
+        </div>
+    </section>
+
+    <!-- القسم 5: سيناريو عملي (المقارنة) -->
+    <section class="section scenario" id="scenario">
+        <div class="container">
+            <h2 class="section-title">⚖️ السيناريو الحقيقي: إضافة "special_requests"</h2>
+            <p class="section-subtitle">طلب مدير المنتج إضافة طلبات خاصة في الحجز (FR-045). شوف الفرق بين الطريقتين:</p>
+            <div class="scenario-grid">
+                <div class="scenario-column bad-way">
+                    <h3 class="column-title"><i class="fas fa-times-circle"></i> الطريقة القديمة (Polyrepo)</h3>
+                    <div class="diff-block">
+                        <div class="diff-header ts">1. Backend (Booking.ts) — Repo #1</div>
+                        <pre class="code-block"><code>  ticket_number: string;
+  backup_phone?: string;
+  status: 'initial' | 'confirmed' | 'cancelled' | 'completed';
+<span class="diff-add">+ special_requests?: string; <span class="comment">// تعديل يدوي في مشروع #1</span></span></code></pre>
+                    </div>
+                    <div class="diff-block">
+                        <div class="diff-header dart">2. Customer App (Booking.dart) — Repo #2</div>
+                        <pre class="code-block"><code>  final String ticket_number;
+  final String? backup_phone;
+  final String status;
+<span class="diff-add">+ final String? special_requests; <span class="comment">// تعديل يدوي #2 (نسخ لصق)</span></span></code></pre>
+                    </div>
+                    <div class="diff-block">
+                        <div class="diff-header dart">3. Vendor App (Booking.dart) — Repo #3</div>
+                        <pre class="code-block"><code>  final String ticket_number;
+  final String status;
+<span class="diff-add">+ final String? special_requests; <span class="comment">// تعديل يدوي #3! 😩</span></span></code></pre>
+                    </div>
+                    <div class="step-summary error">❌ 3 Pull Requests + 3 مراجعات + ممكن تنسى تعدل واحد!</div>
+                    <div class="result-bubble">⏳ سارة (Flutter) استنت 3 ساعات عشان التنسيق مع أحمد (Backend).</div>
+                </div>
+                <div class="scenario-column good-way">
+                    <h3 class="column-title"><i class="fas fa-check-circle"></i> مع الـ Monorepo</h3>
+                    <div class="diff-block">
+                        <div class="diff-header yaml">1. Shared Contract (openapi.yaml)</div>
+                        <pre class="code-block"><code>  properties:
+    ticket_number:
+      type: string
+    backup_phone:
+      type: string
+<span class="diff-add">+   special_requests: <span class="comment"># تعديل واحد بس هنا!</span></span>
+<span class="diff-add">+     type: string</span>
+<span class="diff-add">+     description: "طلبات خاصة من المسافر"</span></code></pre>
+                    </div>
+                    <div class="diff-block terminal-diff">
+                        <div class="diff-header terminal">2. Terminal (أمر واحد)</div>
+                        <pre class="code-block"><code><span class="prompt">$</span> npm run generate
+
+<span class="text-success">✔ api-contract: openapi validated</span>
+<span class="text-success">✔ backend: booking.types.ts updated</span>
+<span class="text-success">✔ customer-app: booking_model.dart updated</span>
+<span class="text-success">✔ vendor-app: booking_model.dart updated</span>
+
+<span class="comment">Done in 2.3s</span></code></pre>
+                    </div>
+                    <div class="step-summary success">✅ Pull Request واحد فقط! وفريق Flutter سحب التغييرات واشتغل عليها فوراً.</div>
+                    <div class="result-bubble success">🚀 سارة خلصت الشغل في 5 دقائق وروحت تاخد قهوة.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 6: CI/CD Pipeline (مع محاكاة خطأ حقيقي + زرار يدوي) -->
+    <section class="section cicd-pipeline" id="cicd-pipeline">
+        <div class="container">
+            <h2 class="section-title">🛡️ التكامل مع CI/CD (الحماية)</h2>
+            <p class="section-subtitle">كيف يمنع الـ Pipeline الأخطاء قبل وصولها للمستخدم؟ (سيناريو: خالد نسي يعدل الـ Backend)</p>
+
+            <div class="cicd-container glass fade-in-section">
+                <div class="cicd-developer">
+                    <i class="fas fa-laptop-code"></i>
+                    <div class="bubble">خالد عدل الـ YAML ورفع الكود.. بس نسي يعدل الـ Backend! 😱</div>
+                </div>
+
+                <!-- زرار يدوي واضح -->
+                <button class="action-btn primary-btn cicd-trigger-btn" id="run-cicd-btn">
+                    <i class="fas fa-play"></i> شغّل محاكاة الـ CI/CD Pipeline
+                </button>
+
+                <div class="cicd-track">
+                    <div class="pipeline-step" id="step-push">
+                        <div class="step-icon"><i class="fab fa-github"></i></div>
+                        <div class="step-label">Git Push</div>
+                    </div>
+                    <div class="pipeline-line" id="line-1"></div>
+                    <div class="pipeline-step" id="step-gen">
+                        <div class="step-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="step-label">npm run generate</div>
+                    </div>
+                    <div class="pipeline-line" id="line-2"></div>
+                    <div class="pipeline-step" id="step-build">
+                        <div class="step-icon"><i class="fas fa-hammer"></i></div>
+                        <div class="step-label">Type Check</div>
+                    </div>
+                    <div class="pipeline-line" id="line-3"></div>
+                    <div class="pipeline-step" id="step-result">
+                        <div class="step-icon"><i class="fas fa-times"></i></div>
+                        <div class="step-label">PR Rejected!</div>
+                    </div>
+                </div>
+
+                <!-- محاكاة رسالة الخطأ الحقيقية -->
+                <div class="error-detail" id="error-detail">
+                    <div class="error-header"><i class="fas fa-exclamation-triangle"></i> ❌ GitHub Actions — Build Failed</div>
+                    <div class="error-body">
+                        <code><span class="comment">// الخطأ ده بيطلع في TypeScript عشان الـ Interface اتحدث</span></code>
+                        <code><span class="comment">// بس الكود القديم مش بيستخدم الحقل الجديد</span></code>
+                        <code></code>
+                        <code>src/booking/booking.service.ts(42,25):</code>
+                        <code>  <span class="text-danger">error TS2339: Property 'special_requests'</span></code>
+                        <code>  <span class="text-danger">does not exist on type 'CreateBookingDto'.</span></code>
+                        <code></code>
+                        <code>src/booking/booking.dto.ts(15,3):</code>
+                        <code>  <span class="text-danger">error TS2741: Property 'special_requests' is</span></code>
+                        <code>  <span class="text-danger">missing in type but required in 'Booking'.</span></code>
+                    </div>
+                    <div class="error-solution">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>الحل:</strong> روح لـ <code>booking.service.ts</code> وأضف <code>special_requests</code> في الـ DTO والدالة. بعدين ارفع الكود تاني!
+                    </div>
+                    <button class="action-btn fix-btn" id="fix-error-btn">🔧 خالد أصلح الخطأ! أعد المحاكاة (Pipeline Success)</button>
+                </div>
+
+                <div class="cicd-explanation" id="cicd-explanation">
+                    <h3>✅ النتيجة: <span class="text-success">تم منع الدمج!</span></h3>
+                    <p>الـ Pipeline وقف بناء الكود لأن الـ TypeScript اكتشف أن <code>Booking</code> عنده حقل جديد لكن
+                        الخدمة (Service) مش بتستخدمه. كده منضمنش إن الكود الخاطئ يوصل للمستخدمين (Production).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 7: سير عمل الفريق (Turborepo) -->
+    <section class="section workflow" id="workflow">
+        <div class="container">
+            <h2 class="section-title">🤝 سير عمل الفريق بفضل Turborepo</h2>
+            <div class="workflow-diagram fade-in-section">
+                <div class="team-member ahmad">
+                    <div class="avatar"><i class="fas fa-user-astronaut"></i></div>
+                    <h4>أحمد (Backend)</h4>
+                    <div class="action-bubble">عدل الـ YAML ورفع الكود</div>
+                </div>
+                <div class="workflow-steps">
+                    <div class="w-step w-step-1">1. Push <i class="fas fa-arrow-right"></i></div>
+                    <div class="w-step w-step-2">2. Remote Cache <i class="fas fa-cloud"></i> (تخزين مؤقت)</div>
+                    <div class="w-step w-step-3">3. Pull <i class="fas fa-arrow-left"></i></div>
+                </div>
+                <div class="team-member sara">
+                    <div class="avatar"><i class="fas fa-user-ninja"></i></div>
+                    <h4>سارة (Flutter)</h4>
+                    <div class="action-bubble success">عملت Build في ثانية من الـ Cache! ⚡</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 8: مسرد المصطلحات -->
+    <section class="section glossary" id="glossary">
+        <div class="container">
+            <h2 class="section-title">📚 مسرد المصطلحات (للمبتدئين)</h2>
+            <div class="glossary-grid fade-in-section">
+                <div class="glossary-item glass">
+                    <h4>📄 Single Source of Truth</h4>
+                    <p>المصدر الوحيد الموثوق للمعلومات. في Rihla، هو ملف <code>openapi.yaml</code> اللي بيوصف كل الموديلات والـ APIs.</p>
+                </div>
+                <div class="glossary-item glass">
+                    <h4>🤖 Code Generation</h4>
+                    <p>عملية توليد الكود تلقائياً من ملف تعريف. زي ما تكون عندك ماكينة مطبعة: تديها القالب والبيانات، تطلعلك كتاب جاهز!</p>
+                </div>
+                <div class="glossary-item glass">
+                    <h4>🌳 AST (Abstract Syntax Tree)</h4>
+                    <p>طريقة الكمبيوتر في فهم الكود. الأداة بتحول الـ YAML لشكل شجري (زي شجرة الملفات اللي فوق) عشان تفهمه وتتعامل معاه.</p>
+                </div>
+                <div class="glossary-item glass">
+                    <h4>📦 Mustache Templates</h4>
+                    <p>قوالب فيها أماكن فاضية <code>{{ }}</code>، الأداة بتملأها بالبيانات. زي ما يكون عندك نموذج (Form) في الورق وبتملأ الخانات.</p>
+                </div>
+                <div class="glossary-item glass">
+                    <h4>⚡ Turborepo Cache</h4>
+                    <p>تخزين مؤقت لنتائج البناء. لو سارة عملت Build قبل كده ومفيش تغييرات جديدة، مش هتضيع وقت تعيده تاني — بياخد ثانية!</p>
+                </div>
+                <div class="glossary-item glass">
+                    <h4>🔄 CI/CD Pipeline</h4>
+                    <p>سلسلة خطوات أوتوماتيكية بتشتغل على السيرفر (زي GitHub Actions) كل ما حد يرفع كود. بتتأكد إن الكود مفيهوش أخطاء قبل ما يتدمج.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 9: خطوات عملية للمطور الجديد -->
+    <section class="section checklist" id="checklist">
+        <div class="container">
+            <h2 class="section-title">✅ خطواتك كـ Junior عند إضافة حقل جديد</h2>
+            <div class="checklist-grid fade-in-section">
+                <div class="checklist-step"><span class="step-num">1</span> افتح ملف <code>packages/api-contract/openapi.yaml</code>.</div>
+                <div class="checklist-step"><span class="step-num">2</span> أضف الحقل الجديد تحت <code>properties</code> مع تحديد النوع (<code>string</code>, <code>number</code>, <code>integer</code>).</div>
+                <div class="checklist-step"><span class="step-num">3</span> احفظ الملف وارفع التغييرات (أو شغّل محلياً).</div>
+                <div class="checklist-step"><span class="step-num">4</span> شغّل الأمر <code>npm run generate</code>.</div>
+                <div class="checklist-step"><span class="step-num">5</span> تأكد من ظهور الكود الجديد في مجلدات <code>generated/</code>.</div>
+                <div class="checklist-step"><span class="step-num">6</span> اعدل الكود في المشاريع (Backend Service / Flutter UI) عشان تستخدم الحقل الجديد.</div>
+                <div class="checklist-step"><span class="step-num">7</span> ارفع Pull Request وانتظر نجاح CI/CD (الـ Pipeline الأخضر ✅).</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القسم 10: الأسئلة الشائعة -->
+    <section class="section faq" id="faq">
+        <div class="container">
+            <h2 class="section-title">❓ أسئلة المطورين الجدد</h2>
+            <div class="faq-grid fade-in-section">
+                <div class="faq-item glass">
+                    <h4>ماذا لو غلطت في كتابة الـ YAML؟</h4>
+                    <p>الأداة هتطلعلك رسالة خطأ واضحة (زي <code>Invalid YAML at line 45</code>)، والـ CI/CD هيرفض الدمج. هتروح تعدل الغلطة وتجرب تاني.</p>
+                </div>
+                <div class="faq-item glass">
+                    <h4>هل لازم أتعلم Mustache Templates؟</h4>
+                    <p>لا طبعاً! القوالب دي مسؤولية فريق الأدوات (DevOps). أنت كمطور عادي بتستخدم القوالب الجاهزة وخلاص.</p>
+                </div>
+                <div class="faq-item glass">
+                    <h4>إزاي أتأكد إن التعديل وصل لكل المشاريع؟</h4>
+                    <p>شوف مجلد <code>generated/</code> في كل مشروع بعد التوليد. لو الملفات اتحدثت (git diff يوضحلك)، يبقى وصل.</p>
+                </div>
+                <div class="faq-item glass">
+                    <h4>ليه الـ Build بياخد وقت طويل أول مرة؟</h4>
+                    <p>في أول مرة بس (Cold Build) عشان بيبني كل حاجة من الصفر. بعد كده Turborepo بيستخدم الـ Cache ويخلي البناء في ثواني.</p>
+                </div>
+                <div class="faq-item glass">
+                    <h4>إيه الـ npm run generate بيعمل بالضبط؟</h4>
+                    <p>ده أمر مختصر (alias) في ملف <code>package.json</code> بيشغل أداة <code>openapi-generator-cli generate</code> مع إعدادات المشروع.</p>
+                </div>
+                <div class="faq-item glass">
+                    <h4>لو عاوز أضيف حقل required مش optional؟</h4>
+                    <p>في ملف الـ YAML، ضيف اسم الحقل في قائمة <code>required</code> اللي في أول الموديل. كده الكود المولّد مش هيحط <code>?</code> (nullable).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
